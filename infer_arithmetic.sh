@@ -5,7 +5,7 @@
 # infer arithmetirc task using our finetuned llama2
 cat prompt_arithmetic.txt | python inference.py \
 	--model_name meta-llama/Llama-2-7b-hf \
-	--peft_model $PWD/output_arithmetric \
+	--peft_model $PWD/output_arithmetic \
 	--use_auditnlg 
 
 

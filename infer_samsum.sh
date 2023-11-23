@@ -6,6 +6,6 @@ cat prompt_samsum.txt | python inference.py \
 
 
 # infer samsum task using original llama2
-cat prompt_samsum.txt | python inference.py \
-	--model_name meta-llama/Llama-2-7b-hf \
-	--use_auditnlg 
+#cat prompt_samsum.txt | python inference.py \
+#	--model_name meta-llama/Llama-2-7b-hf \
+#	--use_auditnlg 
