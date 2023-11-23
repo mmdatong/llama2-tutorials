@@ -6,6 +6,8 @@
 
 ### 一，llama2 简介
 
+llama2 是 Meta 开源的可商用的语言大模型，它有不同大小的模型，从7B到70B，可以很好地适应不同复杂程度的任务。
+
 
 ### 二，模型微调
 为了帮助人们更好地使用 llama 模型，Meta 官方专门提供了一个项目 [llama-recipes](https://github.com/facebookresearch/llama-recipes/). 本文基于这个项目，介绍如何对llama2 模型进行微调，以及在自定义的数据集上进行微调，本文的实验代码开源在 [llama-tutorials](https://github.com/mmdatong/llama2-tutorials)，**您也可以在[美美大同平台](https://mmdatong.com/)一键启动机器，快速上手学习和使用模型。注意，如您在美美大同平台使用 llama2 模型，表示你已经阅读并同意 Meta 关于 llama2 的[协议](https://ai.meta.com/resources/models-and-libraries/llama-downloads/)。**
