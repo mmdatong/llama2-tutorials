@@ -1,0 +1,4 @@
+Calculate the following expression:
+What is the value obtained from 19-59?
+---
+Answer:
