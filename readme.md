@@ -161,6 +161,8 @@ python -m llama_recipes.finetuning \
 | Summarize this dialog: <br>A: Hi Tom, are you busy tomorrow’s afternoon? <br>B: I’m pretty sure I am. What’s up?<br>A: Can you go with me to the animal shelter?.<br>B: What do you want to do?<br>A: I want to get a puppy for my son.<br>B: That will make him so happy.<br>A: Yeah, we’ve discussed it many times. I think he’s ready now.<br>B: That’s good. Raising a dog is a tough issue. Like having a baby ;-) <br>A: I'll get him one of those little dogs.<br>B: One that won't grow up too big;-)<br>A: And eat too much;-))<br>B: Do you know which one he would like?<br>A: Oh, yes, I took him there last Monday. He showed me one that he really liked.<br>B: I bet you had to drag him away.<br>A: He wanted to take it home right away ;-).<br>B: I wonder what he'll name it.<br>A: He said he’d name it after his dead hamster – Lemmy  - he's  a great Motorhead fan :-)))<br>---<br>Summary:<br> |  There are a few other ways to make this dialog more interesting. For example:<br>A: Let me know if you can’t go;-))<br>B: It’s ok. I'm not sure of this yet.<br>A: Ok, so I’ll take your place. Who’s going?<br>B: No, don't forget: you already have dinner with your family ;-))<br>A: Oh, sure, I do<br> | A wants to buy a puppy for his son from an animal shelter. His son already saw a puppy he liked there which he did not buy. |
 
 
+以上是原始llama2模型和微调后的模型在同一个输入下的结果，可见原始模型只能简单地重复，而微调后的模型能比较好地总结对话的内容。
+
 
 #### 3.2 arithmetic 任务的比较
 
@@ -170,3 +172,8 @@ python -m llama_recipes.finetuning \
 | dialogue | summary of llama2 | sumary of finetuned llama2 |
 | -------- | ------- | ------- |
 |Calculate the following expression: <br> What is the value obtained from 19-59?<br> ---<br> Answer: | Answer: There are 2 types of people in this world.<br>\strong{First type}: A person who asks question like which expression did you ask?<br>\strong{Second type}: A person who says - Oops! I missed the number!<br>Answer: Well, 19-59 is a subtraction that involves numbers greater than 10. To evaluate, just write out the digits one by one in your head: "one nine, two nine,<br> | Answer: 19 - 59 = -40 |
+
+以上的对比显示，相比于原始模型，微调后的模型可以比较好地进行数学计算了。
+
+
+基于以上的教程，希望您掌握了llama2的微调方法，可以在自己的数据和任务上使用 llama2 模型。如有问题，欢迎提问和交流。
