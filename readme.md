@@ -8,7 +8,7 @@
 
 
 ### 二，模型微调
-为了帮助人们更好地使用 llama 模型，Meta 官方专门提供了一个项目 [llama-recipes](https://github.com/facebookresearch/llama-recipes/). 本文基于这个项目，介绍如何对llama2 模型进行微调，以及在自定义的数据集上进行微调，本文的实验代码开源在 [llama-tutorials](https://github.com/mmdatong/llama2-tutorials)，**用户也可以在[美美大同](https://mmdatong.com/)一键启动机器，快速上手学习和使用模型**。注意，如您在美美大同网站使用 llama2 模型，表示你已经阅读并同意 Meta 关于 llama2 的[协议](https://ai.meta.com/resources/models-and-libraries/llama-downloads/)。
+为了帮助人们更好地使用 llama 模型，Meta 官方专门提供了一个项目 [llama-recipes](https://github.com/facebookresearch/llama-recipes/). 本文基于这个项目，介绍如何对llama2 模型进行微调，以及在自定义的数据集上进行微调，本文的实验代码开源在 [llama-tutorials](https://github.com/mmdatong/llama2-tutorials)，**您也可以在[美美大同平台](https://mmdatong.com/)一键启动机器，快速上手学习和使用模型。注意，如您在美美大同平台使用 llama2 模型，表示你已经阅读并同意 Meta 关于 llama2 的[协议](https://ai.meta.com/resources/models-and-libraries/llama-downloads/)。**
 
 下面本文介绍如何在 samsum 数据集和自定义的 arithmetic 数据集上微调 llama2 模型。
 
@@ -121,7 +121,7 @@ Dataset({
 生成的自定义 arithmetic 训练数据有9500条，每一条有'instruction', 'input', 'output', 'answer'字段，实际训练用到的字段只有 'instruction', 'output'。
 
 
-#### 2.2.1 arithmetirc 数据集处理
+#### 2.2.1 arithmetic 数据集处理
 以上介绍了自定义 arithmetic 数据的生成方式和数据格式。下面介绍如何用自定义的数据进行模型的微调。
 
 llama-recipes 提供了一个接口，允许用户可以自己设计训练数据的输入格式，在 [dataset.py](https://github.com/mmdatong/llama2-tutorials/blob/master/dataset.py#L42) 中 get_preprocessed_arithmetic 函数展示了如何读取自定义数据，并且转化为 llama2 模型的输入。
@@ -140,18 +140,33 @@ python -m llama_recipes.finetuning \
 		--model_name meta-llama/Llama-2-7b-hf \
 		--dataset custom_dataset \
 		--custom_dataset.file "dataset.py:get_preprocessed_arithmetic" \
-		--output_dir output_samsum \
+		--output_dir output_arithmetic \
 		--batch_size_training 1 \
 		--num_epochs 1 \
 		--use_fast_kernels
-
-
 ```
-
-
-
 
 
 ### 三，模型预测和结果比较
 
+经过以上的微调，得到 finetune 的模型，两个任务模型训练的结果分别保存在 `output_samsum` 和`output_arithmetic`
 
+
+#### 3.1. samsum 任务的比较
+[infer_samsum.sh](https://github.com/mmdatong/llama2-tutorials/blob/master/infer_samsum.sh) 脚本中展示如何用原始llama2 模型以及微调后的模型进行预测。以下是预测结果的比较。
+
+
+| dialogue | summary of llama2 | sumary of finetuned llama2 |
+| -------- | ------- | ------- |
+| Summarize this dialog: <br>A: Hi Tom, are you busy tomorrow’s afternoon? <br>B: I’m pretty sure I am. What’s up?<br>A: Can you go with me to the animal shelter?.<br>B: What do you want to do?<br>A: I want to get a puppy for my son.<br>B: That will make him so happy.<br>A: Yeah, we’ve discussed it many times. I think he’s ready now.<br>B: That’s good. Raising a dog is a tough issue. Like having a baby ;-) <br>A: I'll get him one of those little dogs.<br>B: One that won't grow up too big;-)<br>A: And eat too much;-))<br>B: Do you know which one he would like?<br>A: Oh, yes, I took him there last Monday. He showed me one that he really liked.<br>B: I bet you had to drag him away.<br>A: He wanted to take it home right away ;-).<br>B: I wonder what he'll name it.<br>A: He said he’d name it after his dead hamster – Lemmy  - he's  a great Motorhead fan :-)))<br>---<br>Summary:<br> | ss | ss |
+
+
+
+#### 3.2 arithmetic 任务的比较
+
+[infer_samsum.sh](https://github.com/mmdatong/llama2-tutorials/blob/master/infer_arithmetic.sh) 脚本中展示如何用原始llama2 模型以及微调后的模型进行预测。以下是预测结果的比较。
+
+
+| dialogue | summary of llama2 | sumary of finetuned llama2 |
+| -------- | ------- | ------- |
+|Calculate the following expression: <br> What is the value obtained from 19-59?<br> ---<br> Answer: | d| f |
