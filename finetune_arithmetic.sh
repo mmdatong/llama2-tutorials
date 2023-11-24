@@ -1,3 +1,6 @@
+# set http proxy in container
+source /etc/network_turbo
+
 python -m llama_recipes.finetuning \
        	--use_peft \
 		--peft_method lora \
