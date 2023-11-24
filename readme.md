@@ -54,7 +54,7 @@ DatasetDict({
 
 ```
 # you can using following script:
-cd /root/workspace  
+cd llama2-tutorials
 bash finetune_samsum.sh
 
 # or
@@ -79,7 +79,7 @@ python -m llama_recipes.finetuning \
 首先我们使用以下的脚本生成这样一批数据，其中训练集，测试集，验证集的数量分别是 9500，500，500.
 
 ```
-cd /root/workspace/arithmetic_data
+cd llama2-tutorials/arithmetic_data
 bash create_arithmetic_data.sh
 ```
 
