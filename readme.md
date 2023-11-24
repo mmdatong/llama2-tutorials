@@ -2,9 +2,7 @@
 
 以 chatgpt 和 gpt4 为代表的语言大模型向人们展示了 AI 的强大能力，并且在实际生活中逐渐成为人类的重要助手，在很多场景下极大提升了工作效率，甚至能完全取代很多工作。相比于 chatgpt 和 gpt4，Meta 公司开源的 llama 2 允许用户可以更灵活地使用语言大模型，满足用户自定义的需求，并且可以商用。它有不同大小的模型，从7B到70B，可以很好地适应不同复杂程度的任务。
 
-本文主要向对语言大模型感兴趣，希望使用语言大模型的朋友提供一个基础的入门版教程，帮助朋友们快速地入门llama模型的使用。本文的主要部分包括：（1） llama2 语言大模型的简介；（2）在 samsum 数据集和自定义数据集（arithmetirc）上微调llama2语言大模型；（3）模型的推断以及微调模型和原始模型的结果比较。
-
-
+本文主要向对语言大模型感兴趣，希望使用语言大模型的朋友提供一个基础的入门版教程，帮助朋友们快速地入门llama模型的使用。本文的主要部分包括：（一）在 samsum 数据集和自定义数据集（arithmetirc）上微调llama2语言大模型；（二）模型的推断以及微调模型和原始模型的结果比较。
 
 
 ### 一，模型微调
@@ -51,7 +49,7 @@ DatasetDict({
 如上所示，samsum 数据集的训练，验证和测试数据分别有14732，819和818条数据，每条数据分别有 dialogue 和 summary 两个字段。微调的目标就是让 llama2 模型可以基于 dialogue（对话）进行总结，输出总结的内容。
 
 #### 1.1.2 模型微调
-以下两个脚本都可以直接在 samsum 数据上进行微调，在网络不稳定情况下，推荐使用第一个脚本。本部分实验需要 24GB 显存，推荐使用 3090 或者 4090 显卡。实验在 samsum 数据集上训练1个epoch，预计训练时间是 1.5 小时。
+以下脚本可以直接在 samsum 数据上进行微调。本部分实验需要 24GB 显存，推荐使用 3090 或者 4090 显卡。实验在 samsum 数据集上训练1个epoch，预计训练时间是 1.5 小时。
 
 
 ```
@@ -59,22 +57,7 @@ DatasetDict({
 cd /root/workspace  
 bash finetune_samsum.sh
 
-
-# or method 1：
-python -m llama_recipes.finetuning \
-       	--use_peft \
-		--peft_method lora \
-		--quantization \
-		--use_fp16 \
-		--model_name meta-llama/Llama-2-7b-hf \
-		--output_dir output_samsum \
-		--dataset custom_dataset \
-		--custom_dataset.file "dataset.py:get_preprocessed_samsum" \
-		--batch_size_training 1 \
-		--num_epochs 1 \
-		--use_fast_kernels
-
-# or method 2：
+# or
 python -m llama_recipes.finetuning \
        	--use_peft \
 		--peft_method lora \
