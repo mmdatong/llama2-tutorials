@@ -12,27 +12,29 @@ from langchain.vectorstores import FAISS
 from utils import llama2Model
 import fitz 
 
+def split_text(text, max_length):
+    if len(text) <= max_length:
+        return text, ""
+
+    idx = text.rfind(' ', 0, max_length)
+    if idx==-1: 
+        idx = max_length
+    return text[:idx], text[idx:].lstrip()
+
+    
+
 def create_retriever_from_pdf(pdf_paths):
+    max_length = 1000
     texts = []
     for pdf_path in pdf_paths:
         with fitz.open(pdf_path) as document:
             text = ""
             for page in document:
                 text += page.get_text()
-        texts = []
-        max_length = 1000
         while text:
-            if len(text) <= max_length:
-                texts.append(text)
-                break
-            else:
-                idx = text.rfind(' ', 0, max_length)
+            text_head, text = split_text(text, max_length)
+            texts.append(text_head)
 
-                if idx == -1:
-                    idx = max_length
-
-                texts.append(text[:idx])
-                text = text[idx:].lstrip()
 
     vectorstore = FAISS.from_texts(
             texts,
@@ -71,9 +73,13 @@ if __name__=="__main__":
         | StrOutputParser()
     )
 
-    #res = chain.invoke("How many parameters does llama2 have?")
-    res = chain.invoke("What can llama 2 do?")
-    print(res)
+    question = "How many parameters does llama2 have?"
+    #question = "What are limitations of human evaluations?"
+    #question = "What can llama2 do?"
+
+
+    res = chain.invoke(question)
+    print(res.split("[/INST]")[-1])
 
 
 
